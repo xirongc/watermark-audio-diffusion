@@ -83,6 +83,10 @@ def process_to_directory(input_dir, output_dir, mel):
                     if all(np.frombuffer(image.tobytes(), dtype=np.uint8) == 255):
                         continue
 
+                    # image format covertion, temperorily line for convert grayscale to RGB
+                    # remove later when grayscale model was done
+                    image = image.convert("RGB")
+
                     # adding slices extension here, because when audio file is longer, you need to slice it 
                     # and you need to know how many slices are there, and what part is what slice
                     # image_filename = os.path.splitext(os.path.basename(audio_file))[0] + f"_slice_{slice}.png"
