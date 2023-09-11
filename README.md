@@ -1,6 +1,5 @@
 
 ## To-Do 
-- [ ] *Add utils converting between RGB and Grayscale*
 - [ ] *clean up TrojDiff's attack model*
 - [ ] *revise the code for out of class attack, (inputs, structure)*
 - [ ] *write grayscale model part*
