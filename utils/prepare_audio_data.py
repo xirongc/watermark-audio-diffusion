@@ -133,7 +133,8 @@ def process_audio(base_path, extract_path):
 
 
     # spliting them (speech command audio)
-    USED_CLS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    # USED_CLS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+    USED_CLS = ['bird', 'cat', 'dog', 'down', 'eight', 'marvin', 'sheila', 'three', 'wow', 'zero']
     # USED_CLS = ['backward']
     train_dataset = SpeechCommand(ALL_CLS, USED_CLS, 0)
     val_dataset = SpeechCommand(ALL_CLS, USED_CLS, 1)
