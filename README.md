@@ -2,8 +2,8 @@
 ## To-Do 
 - [ ] *evaluation part*
 
-## Invisible Watermarking For Audio Generation Diffusion Models
-<img src="./utils/flowchart.png" width=800>
+# Invisible Watermarking For Audio Generation Diffusion Models
+<img src="./utils/flowchart.png" width=750>
 
 *This is the official implementation of the paper, code adopted from previous works, thank all contributions. Paper [link]()*
 
