@@ -1,6 +1,7 @@
 
 ## To-Do 
 - [ ] *evaluation part*
+- [ ] *require package*
 
 # Invisible Watermarking For Audio Generation Diffusion Models
 <div align="center">
@@ -8,6 +9,8 @@
 </div>
 
 *This is the official implementation of the paper, code adopted from previous works, thank all contributions, [link](https://www.youtube.com)*
+
+
 
 ## Prepare Dataset
 &#x23f5; *download raw audio dataset*
