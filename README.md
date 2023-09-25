@@ -87,7 +87,7 @@ python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --fid --
 ## &#x237e; Evaluation
 
 
-## &#x237e; Ciation
+## &#x237e; Citation
 
 
 ## 🙏 Appreciation
