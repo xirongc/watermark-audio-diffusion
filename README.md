@@ -41,7 +41,7 @@ watermark-audio-diffusion/
 │   │   │   └── ...
 │   ├── out_class/
 │   │   ├── test/
-│   │   ├── train/
+│   │   └── train/
 ├── raw/
 │   ├── audio/
 │   ├── npy/
@@ -51,7 +51,7 @@ watermark-audio-diffusion/
 ## &#x237e; Train
 *1) In-Distribution Watermark* <br>
 ```python 
-# (blend) dataset has to be the same as the one that store inside directory ./data
+# (blend) dataset name has to be the same as the one that store inside directory ./data
 python main.py --dataset SpeechCommand --config sc_64.yml --ni --gamma 0.6 --target_label 6
 
 # (patch) --miu_path is where you trigger located
