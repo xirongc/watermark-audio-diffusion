@@ -6,16 +6,16 @@
 <div align="center">
   <img src="./utils/flowchart.png" width=700>
 </div>
+
 *This is the official implementation of the paper, code adopted from previous works, thank all contributions, [link](https://www.youtube.com)*
 
 ## Prepare Dataset
-&#x23f5; *raw audio*
+&#x23f5; *download raw audio dataset*
 ```python 
 python utils/prepare_sc.py
 ```
-&#x23f5; *mel-spectrogram convertion*
+&#x23f5; *mel-spectrogram convertion: the following code automatically setup dataset for training*
 ```python 
-# the following code automatically setup dataset for training (in ./data)
 python utils/audio_conversion.py \ 
 --resolution 64 \ 
 --sample_rate 16000 \
