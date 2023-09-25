@@ -14,7 +14,7 @@
 ```python 
 python utils/prepare_sc.py
 ```
-&#x23f5; *mel-spectrogram convertion: the following code automatically setup dataset for training*
+&#x23f5; *mel-spectrogram convertion (the following code automatically setup dataset for training)*
 ```python 
 python utils/audio_conversion.py \ 
 --resolution 64 \ 
@@ -83,3 +83,10 @@ python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --fid --
 ```
 
 ## &#x237e; Evaluation
+
+
+## &#x237e; Ciation
+
+
+## 🙏 Appreciation
+*The code is based on [Trojan Diffusion](https://github.com/chenweixin107/TrojDiff). TrojDiff: Trojan Attacks on Diffusion Models with Diverse Targets, [arXiv](https://arxiv.org/abs/2303.05762)*
