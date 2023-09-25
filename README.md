@@ -6,7 +6,7 @@
 <div align="center">
   <img src="./utils/flowchart.png" width=700>
 </div>
-*This is the official implementation of the paper, code adopted from previous works, thank all contributions. Paper [link]()*
+*This is the official implementation of the paper, code adopted from previous works, thank all contributions, [link](https://www.youtube.com)*
 
 ## Prepare Dataset
 &#x23f5; *raw audio*
