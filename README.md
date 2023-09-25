@@ -2,6 +2,11 @@
 ## To-Do 
 - [ ] *evaluation part*
 
+## Invisible Watermarking For Audio Generation Diffusion Models
+<img src="./utils/flowchart.png" width=800>
+
+*This is the official implementation of the paper, code adopted from previous works, thank all contributions. Paper [link]()*
+
 ## Prepare Dataset
 &#x23f5; *raw audio*
 ```python 
@@ -42,7 +47,6 @@ watermark-audio-diffusion/
 │   ├── speech_command_v2/
 │   └── .gz
 ```
-# Watermark Model
 ## &#x237e; Train
 *1) In-Distribution Watermark* <br>
 ```python 
