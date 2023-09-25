@@ -75,10 +75,12 @@ python vanilla.py --doc vanilla_sc64 --config sc_64.yml --ni
 ## &#x237e; Sample | Generation
 *DDPM Schedule*
 ```python
+# (blend)
 python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --sample_type ddpm_noisy --fid --timesteps 1000 --eta 1 --gamma 0.6 --watermark d2din
 ```
 *DDIM Schedule*
 ```python 
+# (blend)
 python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --fid --timesteps 100 --eta 0 --gamma 0.6 --skip_type 'quad' --watermark d2din
 ```
 
