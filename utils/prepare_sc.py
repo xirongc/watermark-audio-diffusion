@@ -8,14 +8,13 @@ import numpy as np
 
 import torch
 import torch.utils.data
-from torch.nn.utils.rnn import pack_padded_sequence
-import torch.nn.functional as F
-
+# from torch.nn.utils.rnn import pack_padded_sequence
+# import torch.nn.functional as F
 import soundfile as sf
 
 
+# download the dataset (speech_command) from url, and extract it
 def download_and_extract_data(url, path):
-
     # base path 
     base_path = path
 
@@ -26,7 +25,6 @@ def download_and_extract_data(url, path):
     # Define paths for saving and extracting files
     save_path = f'{base_path}/speech_commands_v0.02.tar.gz'
     extract_path = f'{base_path}/speech_command_v2'
-
 
 
     # Notify user about the start of the download
@@ -67,8 +65,13 @@ def download_and_extract_data(url, path):
     return extract_path
 
 
-
-
+# split the dataset based on given .txt file in the dataset
+# npy usually stored as single structure 2D array, not dictionary (3643, 16000)
+# [, , , , , , ] ...(total 16000 samples) 
+# [, , , , , , ] ...(total 16000 samples) 
+# ...
+# [, , , , , , ] ...(total 16000 samples) 
+# 1D array for labels, they data and label have to one-to-one mapping styles for alignment
 def process_data_set(data_set, ALL_CLS, path, npy_path):
     Xs = []
     ys = []
@@ -89,7 +92,8 @@ def process_data_set(data_set, ALL_CLS, path, npy_path):
         for audio_file in audio_files:
             cls, fname = audio_file.split('/')
             y = ALL_CLS.index(cls)
-            samples, sample_rate = librosa.load(os.path.join(path, audio_file), sr=16000)
+            # samples, sample_rates, here we manual set it to 16000
+            samples, _ = librosa.load(os.path.join(path, audio_file), sr=16000)
             processed = False  # Flag to track if the current file is processed
 
             if len(samples) <= 16000:
@@ -99,6 +103,7 @@ def process_data_set(data_set, ALL_CLS, path, npy_path):
                 processed = True
             t.update(1)
             
+            # exclude audio .wav files that have sample rate greater than 16000
             if not processed:
                 print(f"Exclude audio file with sample rate > 16000: {cls}/{fname}")
 
@@ -113,7 +118,22 @@ def process_data_set(data_set, ALL_CLS, path, npy_path):
         print(f"{set_name} set processed, {len(ys)} in total")
 
 
+# save npy data function, because native numpy array, will load faster 
+# but in terms of memory occupied in RAM is the same as .wav(first to numpy then load)
+def save_as_npy(dataset, path, name):
+    print(f"saving {name} dataset to {path}")
+    Xs = []
+    ys = []
+    for audio_data, label in dataset:
+        Xs.append(audio_data.numpy())
+        ys.append(label)
+        
+    np.save(os.path.join(path, f'{name}_data.npy'), np.array(Xs))
+    np.save(os.path.join(path, f'{name}_label.npy'), np.array(ys))
 
+
+
+# saving npy file and saving split dataset in .wav file
 def process_audio(base_path, extract_path):
     # Identify all the class names by listing directories
     ALL_CLS = [d for d in os.listdir(extract_path) if os.path.isdir(os.path.join(extract_path, d))]
@@ -146,13 +166,15 @@ def process_audio(base_path, extract_path):
         os.makedirs(os.path.join(audio_path, dir_name), exist_ok=True)
 
 
+    # temp defined function for saving the data as .wav file
+    # because it need to use the USED_CLS, which is defined inside this function 
     def save_as_wav(dataset, path, name):
         print(f"saving {name} dataset to {path}")
         with tqdm(total=len(dataset), unit='file', bar_format='{l_bar}{bar}{r_bar}', ascii='->=') as t:
             for idx, (audio_data, label) in enumerate(dataset):
                 file_name = USED_CLS[label] + "_" + str(idx) + ".wav"
                 full_path = os.path.join(path, file_name)
-                sf.write(full_path, audio_data.numpy(), samplerate=16000)
+                sf.write(full_path, audio_data.numpy(), samplerate=16000)   # setting the sample rate as 16000
                 t.update(1)
 
             
@@ -160,43 +182,52 @@ def process_audio(base_path, extract_path):
     save_as_wav(val_dataset, os.path.join(audio_path, 'val'), 'val')
     save_as_wav(test_dataset, os.path.join(audio_path, 'test'), 'test')
 
-
-
-class SpeechCommand(torch.utils.data.Dataset):
-    def __init__(self, ALL_CLS, USED_CLS, split, path='./raw/npy'):
-        self.split = split  #0: train; 1: val; 2: test
-        self.path = path
-        # add check statement to check if ALL_CLS and USED_CLS is empty
-        
-        split_name = {0:'train', 1:'val', 2:'test'}[split]
-        all_Xs = np.load(self.path+'/%s_data.npy'%split_name)
-        all_ys = np.load(self.path+'/%s_label.npy'%split_name)
-
-        # Only keep the data with label in USED_CLS
-        cls_map = {}
-        for i, c in enumerate(USED_CLS):
-            cls_map[ALL_CLS.index(c)] = i
-        self.Xs = []
-        self.ys = []
-        for X, y in zip(all_Xs, all_ys):
-            if y in cls_map:
-                self.Xs.append(X)
-                self.ys.append(cls_map[y])
-
-    def __len__(self,):
-        return len(self.Xs)
-
-    def __getitem__(self, idx):
-        return torch.FloatTensor(self.Xs[idx]), self.ys[idx]
+#     # options for saving to npy file
+#     npy_path = os.path.join(base_path, 'npy_split')
+#     if not os.path.isdir(npy_path):
+#         os.mkdir(npy_path)
+#     # better for loading and working directly with array
+#     save_as_npy(train_dataset, npy_path, 'train')
+#     save_as_npy(val_dataset, npy_path, 'val')
+#     save_as_npy(test_dataset, npy_path, 'test')
 
 
 
 if __name__ == "__main__":
+
     url = 'http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz'
     # set the directory you want to store audio data 
-    base_path = './raw'
+    base_path = '../raw'
     # download and extract the audio data, and return the path it located
     extract_path = download_and_extract_data(url, base_path)
+
+    class SpeechCommand(torch.utils.data.Dataset):
+        def __init__(self, ALL_CLS, USED_CLS, split, path=f'{base_path}/npy'):
+            self.split = split  #0: train; 1: val; 2: test
+            self.path = path
+            # add check statement to check if ALL_CLS and USED_CLS is empty
+            
+            split_name = {0:'train', 1:'val', 2:'test'}[split]
+            all_Xs = np.load(self.path+'/%s_data.npy'%split_name)
+            all_ys = np.load(self.path+'/%s_label.npy'%split_name)
+
+            # Only keep the data with label in USED_CLS
+            cls_map = {}
+            for i, c in enumerate(USED_CLS):
+                cls_map[ALL_CLS.index(c)] = i
+            self.Xs = []
+            self.ys = []
+            for X, y in zip(all_Xs, all_ys):
+                if y in cls_map:
+                    self.Xs.append(X)
+                    self.ys.append(cls_map[y])
+
+        def __len__(self,):
+            return len(self.Xs)
+
+        def __getitem__(self, idx):
+            return torch.FloatTensor(self.Xs[idx]), self.ys[idx]
+
 
     # extract_path = './raw/speech_command_v2'
     process_audio(base_path, extract_path)
