@@ -197,7 +197,7 @@ if __name__ == "__main__":
 
     url = 'http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz'
     # set the directory you want to store audio data 
-    base_path = '../raw'
+    base_path = './raw'
     # download and extract the audio data, and return the path it located
     extract_path = download_and_extract_data(url, base_path)
 
