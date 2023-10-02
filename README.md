@@ -10,10 +10,10 @@
 ## Requirement packages
 ```python
 # conda
-conda install --file requirements.txt
+conda install --file requirement.txt
 
 # pip 
-pip install --file requirements.txt
+pip install --file requirement.txt
 ```
 
 ## Prepare Dataset
