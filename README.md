@@ -92,7 +92,7 @@ python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --fid --
 ```
 
 ## &#x237e; Evaluation
-*Train Classifier using ResNeXt model architecture*
+&#x23f5; *Train Classifier using ResNeXt model architecture for FID and WSR*
 ```python 
 # train 
 python train_speech_commands.py
@@ -100,6 +100,7 @@ python train_speech_commands.py
 # test
 python test_speech_commands.py
 ```
+&#x23f5; *SNR, PSNR and SSIM please refer to eval directory*
 
 ## &#x237e; Citation
 
