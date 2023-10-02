@@ -1,16 +1,20 @@
 
-## To-Do 
-- [ ] *evaluation part*
-- [ ] *require package*
-
 # Invisible Watermarking For Audio Generation Diffusion Models
 <div align="center">
   <img src="./utils/figures/flowchart.png" width=700>
 </div>
 
-*This is the official implementation of the paper, code adopted from previous works, thank all contributions, [link](https://arxiv.org/abs/2309.13166)*
+*The overall framework encompasses the watermarking diffu- sion training and sampling process. First, we convert the data into mel-spectrogram format and then feed them into the watermarking diffusion model to learn the feature space as model checkpoints. When we input a noise image into these model checkpoints, we obtain three distinct generations based on whether different triggers are presented with inputs or not. Built on previous work, thank all contributions. [link](https://arxiv.org/abs/2309.13166)*
 
 
+## Requirement packages
+```python
+# conda
+conda install --file requirements.txt
+
+# pip 
+pip install --file requirements.txt
+```
 
 ## Prepare Dataset
 &#x23f5; *download raw audio dataset*
@@ -88,9 +92,26 @@ python main.py --dataset SpeechCommand --config sc_64.yml --ni --sample --fid --
 ```
 
 ## &#x237e; Evaluation
+*Train Classifier using ResNeXt model architecture*
+```python 
+# train 
+python train_speech_commands.py
 
+# test
+python test_speech_commands.py
+```
 
 ## &#x237e; Citation
+
+```bibtex
+@article{xxw2023watermark,
+    title   = {Invisible Watermarking for Audio Generation Diffusion Models},
+    author  = {Cao, Xirong and Li, Xiang and Jadav, Divyesh and Wu, Yanzhao and Chen, Zhehui and Zeng, Chen and Wei, Wenqi},
+    journal = {ArXiv},
+    year    = {2023},
+    volume  = {abs/2309.13166}
+}
+```
 
 
 ## 🙏 Appreciation
