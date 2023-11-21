@@ -4,7 +4,7 @@
   <img src="./utils/figures/flowchart.png" width=700>
 </div>
 
-*The overall framework encompasses the watermarking diffu- sion training and sampling process. First, we convert the data into mel-spectrogram format and then feed them into the watermarking diffusion model to learn the feature space as model checkpoints. When we input a noise image into these model checkpoints, we obtain three distinct generations based on whether different triggers are presented with inputs or not. Built on previous work, thank all contributions. [link](https://arxiv.org/abs/2309.13166)*
+*The overall framework encompasses the watermarking diffu- sion training and sampling process. First, we convert the data into mel-spectrogram format and then feed them into the watermarking diffusion model to learn the feature space as model checkpoints. When we input a noise image into these model checkpoints, we obtain three distinct generations based on whether different triggers are presented with inputs or not. Built on previous work, thank all contributions. [link](https://arxiv.org/abs/2309.13166v2)*
 
 
 ## Requirement packages
@@ -105,12 +105,11 @@ python test_speech_commands.py
 ## &#x237e; Citation
 
 ```bibtex
-@article{xxw2023watermark,
-    title   = {Invisible Watermarking for Audio Generation Diffusion Models},
-    author  = {Cao, Xirong and Li, Xiang and Jadav, Divyesh and Wu, Yanzhao and Chen, Zhehui and Zeng, Chen and Wei, Wenqi},
-    journal = {ArXiv},
-    year    = {2023},
-    volume  = {abs/2309.13166}
+@article{cao2023invisible,
+  title={Invisible Watermarking for Audio Generation Diffusion Models},
+  author={Cao, Xirong and Li, Xiang and Jadav, Divyesh and Wu, Yanzhao and Chen, Zhehui and Zeng, Chen and Wei, Wenqi},
+  journal={arXiv preprint arXiv:2309.13166},
+  year={2023}
 }
 ```
 
